@@ -1,5 +1,5 @@
--- CREATE DATABASE PetPals1;
--- USE PetPals1;
+CREATE DATABASE PetPals1;
+USE PetPals1;
 
 CREATE TABLE Shelters (
     ShelterID INT PRIMARY KEY AUTO_INCREMENT,
@@ -142,7 +142,10 @@ WHERE Age BETWEEN 1 AND 5;
  where availableforadoption =0 ;
 
 -- 16
-
+SELECT p.Name AS Pet, p1.ParticipantName AS Adopter
+FROM Pets p
+JOIN Participants p1 ON p.OwnerID = p1.ParticipantID
+WHERE p.AvailableForAdoption = 0;
 
 -- 17 
 SELECT s.Name , COUNT(p.PetID) 
@@ -151,7 +154,10 @@ LEFT JOIN Pets p ON s.ShelterID = p.ShelterID AND p.AvailableForAdoption = 1
 GROUP BY s.ShelterID;
 
 -- 18 
-
+SELECT p1.Name AS Pet1, p2.Name AS Pet2,p1.Breed,s.Name AS ShelterName
+FROM Pets p1
+JOIN Pets p2 ON p1.Breed = p2.Breed AND p1.ShelterID = p2.ShelterID AND p1.PetID < p2.PetID
+JOIN Shelters s ON p1.ShelterID = s.ShelterID;
 
 -- 19
 SELECT s.Name , e.EventName
